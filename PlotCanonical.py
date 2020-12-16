@@ -25,8 +25,6 @@ import matplotlib.pyplot as plt
 import toml
 import json
 from glob import glob
-plt.style.use('seaborn-ticks')
-plt.style.use('favorite')
 
 
 def jackknife_estimate(data, func):

@@ -23,8 +23,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import json
-plt.style.use('seaborn-ticks')
-plt.style.use('favorite')
 
 sample = json.load(open('bootstrapped.json', 'r'))
 
