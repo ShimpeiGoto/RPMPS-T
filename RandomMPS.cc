@@ -52,7 +52,7 @@ int main() {
         int Sz = toml::find<int>(toml, "System", "Sz");
         bool is_abelian = toml::find<bool>(toml, "System", "AbelianSymmetry");
         double hz;
-        if (is_abelian) {
+        if (!is_abelian) {
                 hz = toml::find<double>(toml, "System", "MagneticField");
         }
 
