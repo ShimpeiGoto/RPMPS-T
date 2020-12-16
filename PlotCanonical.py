@@ -60,7 +60,7 @@ def Entropy(x, y, beta):
 setting = toml.load(open('setting.toml'))
 N = setting['System']['Lattice']
 
-samples = glob('sample_*.msg')
+samples = glob('sample_*.json')
 
 norm_sq_arr = []
 ene_arr = []

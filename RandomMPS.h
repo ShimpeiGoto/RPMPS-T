@@ -111,7 +111,7 @@ namespace randomMPS {
 
                 output_["LowestEnergy"] = nullptr;
 
-                std::string file_pre("sample_"), file_suf(".msg"), seed_str;
+                std::string file_pre("sample_"), file_suf(".json"), seed_str;
                 seed_str = std::to_string(seed_);
                 filename_ = file_pre + seed_str + file_suf;
 

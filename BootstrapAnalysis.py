@@ -31,7 +31,7 @@ plt.style.use('favorite')
 
 def AddData(directory, storage):
     energies = []
-    samples = glob(directory+'/sample_*.msg')
+    samples = glob(directory+'/sample_*.json')
     norm_sq_arr = []
     ene_arr = []
     ene_sq_arr = []
@@ -47,7 +47,7 @@ def AddData(directory, storage):
     gene = min(energies)
 
     for sample in samples:
-        data = msgpack.unpackb(open(sample, 'rb').read(), raw=False)
+        data = json.load(open(sample, 'rb').read(), raw=False)
         for each in data['Samples']:
             norm = (np.exp(0.5*storage['beta']*(gene - each['Energy'][-1]))
                     * np.array(each['Norm']))
