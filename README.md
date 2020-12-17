@@ -1,4 +1,9 @@
-# EntangledRandomPhaseMPS
+# Entangled Random Phase MPS
+This is the ITensor based implementation of entangled random phase matrix product states (MPS) approach proposed in arXiv:XXXX to simulate quasi one-dimensional quantum many-body systems at finite temperatures.
+
+The purpose of this implementation is to explain our approach to readers by working example.
+So we dropped some optimizations especially on the composition of Trotter gates on purpose.
+
 # Requirements
 ## Main C++ code (RandomMPS.cc)
 This code heavily depends on ITensor library version 3.0 and later (https://github.com/ITensor/ITensor) which requires C++17.
@@ -8,7 +13,7 @@ For file I/O of simulations, the code uses following libraries
 - JSON for Modern C++ (https://github.com/nlohmann/json)
 - TOML for Modern C++ (https://github.com/ToruNiina/toml11)
 
-These are header-only libraries. Please put them on your include path.
+These are header-only libraries. Please put them (single header version of json.hpp, toml.hpp, and toml directory in these repogitory) on your include path.
 
 ## Python scripts for statistical analysis and plotting
 The python scripts in this repository use following non-standard libraries
