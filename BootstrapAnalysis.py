@@ -47,7 +47,7 @@ def AddData(directory, storage):
     gene = min(energies)
 
     for sample in samples:
-        data = json.load(open(sample, 'rb').read(), raw=False)
+        data = json.load(open(sample))
         for each in data['Samples']:
             norm = (np.exp(0.5*storage['beta']*(gene - each['Energy'][-1]))
                     * np.array(each['Norm']))
