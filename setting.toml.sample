@@ -33,7 +33,7 @@ ObserveInterval = 10
 [MPS]
 # Max bond dimension
 MaxM = 2000
-# Toruncation error
+# Truncation error
 tol = 1e-8
 
 # Parameters for unitary transformation
