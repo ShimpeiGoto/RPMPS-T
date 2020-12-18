@@ -51,7 +51,7 @@ int main() {
         int Ns = toml::find<int>(toml, "System", "Lattice");
         int Sz = toml::find<int>(toml, "System", "Sz");
         bool is_abelian = toml::find<bool>(toml, "System", "AbelianSymmetry");
-        double hz;
+        double hz = 0.0;
         if (!is_abelian) {
                 hz = toml::find<double>(toml, "System", "MagneticField");
         }
@@ -71,7 +71,7 @@ int main() {
                 if (i+1 <= Ns) {
                         ampo_H += 0.5*J, "S+", i, "S-", i+1;
                         ampo_H += 0.5*J, "S-", i, "S+", i+1;
-                        ampo_H += J2, "Sz", i, "Sz", i+1;
+                        ampo_H += J, "Sz", i, "Sz", i+1;
                 }
 
                 if (i+2 <= Ns and std::abs(J2) >= 1e-8) {
