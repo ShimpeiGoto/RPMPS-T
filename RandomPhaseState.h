@@ -155,7 +155,6 @@ namespace RandomPhaseState {
                 psi.ref(N) *= itensor::setElt(itensor::dag(links.at(N)(1)));
 
                 psi.position(1);
-                std::cout << "overlap:" << itensor::innerC(psi, psi) << std::endl;
                 psi.normalize();
 
                 return psi;
