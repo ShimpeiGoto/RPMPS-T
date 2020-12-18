@@ -13,10 +13,10 @@ For file I/O of simulations, the code uses following libraries
 - JSON for Modern C++ (https://github.com/nlohmann/json)
 - TOML for Modern C++ (https://github.com/ToruNiina/toml11)
 
-These are header-only libraries. Please put them (single header version of json.hpp, toml.hpp, and toml directory in these repogitory) on your include path.
+These are header-only libraries. Please put them (single header version of json.hpp, toml.hpp, and toml directory in these repositories) on your include path.
 
 ## Python scripts for statistical analysis and plotting
-The python scripts in this repogitory use following non-standard libraries
+The python scripts in this repository use following non-standard libraries
 - Numpy (https://pypi.org/project/numpy/)
 - Matplotlib (https://pypi.org/project/matplotlib/)
 - toml (https://pypi.org/project/toml/)
