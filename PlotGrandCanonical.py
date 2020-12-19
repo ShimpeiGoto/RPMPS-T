@@ -54,7 +54,7 @@ plt.subplot(2, 3, 2)
 plt.errorbar(beta_sample, np.array(sample['SpecificHeat']['Average'][idx])/L,
              yerr=np.array(sample['SpecificHeat']['Error'][idx])/L,
              label='bootstrap')
-plt.errorbar(beta_sample[:-1],
+plt.errorbar(beta_sample,
              np.array(sample['SpecificHeatFromS']['Average'][idx])/L,
              yerr=np.array(sample['SpecificHeatFromS']['Error'][idx])/L,
              label='bootstrap')
