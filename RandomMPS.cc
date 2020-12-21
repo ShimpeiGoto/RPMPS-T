@@ -85,12 +85,12 @@ int main() {
         auto obs = Observer(H);
 
         int Nup = (Ns + Sz) / 2, Ndn = (Ns - Sz) / 2;
-        if (Nup + Ndn != Ns or Nup < 0 or Ndn < 0 or Nup > Ns or Ndn > Ns) {
+        if ((Nup + Ndn != Ns or Nup < 0 or Ndn < 0 or Nup > Ns or Ndn > Ns) and is_abelian) {
                 throw std::runtime_error("Selected Sz sector cannot be specified in this system");
         }
 
         // Setup Trotter gates
-        ZigZag_Trotter::ZigZag_Bond sys(Ns, J, J2, sites);
+        ZigZag_Trotter::ZigZag_Bond sys(Ns, J, J2, hz, sites);
         std::vector<std::pair<int, itensor::ITensor>> gates;
         int n_gates = 2*(Ns-1);
         if (std::abs(J2) >= 1e-8) {

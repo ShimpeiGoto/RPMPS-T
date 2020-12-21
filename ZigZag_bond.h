@@ -29,13 +29,14 @@ namespace ZigZag_Trotter {
         class ZigZag_Bond{
                 private:
                         int N_;
-                        double J_, J2_;
+                        double J_, J2_, Hz_;
                         itensor::SiteSet sites_;
                         std::unordered_map<size_t, itensor::ITensor> swap_gates_;
                         std::unordered_map<size_t, std::pair<itensor::ITensor, itensor::ITensor>> spectrum_;
 
                 public:
-                        ZigZag_Bond(int N, double J, double J2, const itensor::SiteSet &sites) : N_(N), J_(J), J2_(J2), sites_(sites) {}
+                        ZigZag_Bond(int N, double J, double J2, const itensor::SiteSet &sites) : N_(N), J_(J), J2_(J2), Hz_(0.0), sites_(sites) {}
+                        ZigZag_Bond(int N, double J, double J2, double Hz, const itensor::SiteSet &sites) : N_(N), J_(J), J2_(J2), Hz_(Hz), sites_(sites) {}
                         itensor::ITensor BondTerm(size_t idx1, size_t idx2, std::complex<double> tau, size_t site_idx);
                         itensor::ITensor Swap(size_t site_idx);
         };
@@ -48,6 +49,17 @@ namespace ZigZag_Trotter {
                         bond_term += 0.5 * J_now * itensor::op(sites_, "S+", site_idx) * itensor::op(sites_, "S-", site_idx+1);
                         bond_term += 0.5 * J_now * itensor::op(sites_, "S-", site_idx) * itensor::op(sites_, "S+", site_idx+1);
                         bond_term += J_now * itensor::op(sites_, "Sz", site_idx) * itensor::op(sites_, "Sz", site_idx+1);
+                        if (nearest) {
+                                double H1 = 0.5*Hz_, H2 = 0.5*Hz_;
+                                if (idx1 == 1) {
+                                        H1 *= 2.0;
+                                }
+                                if (idx2 == N_) {
+                                        H2 *= 2.0;
+                                }
+                                bond_term += H1 * itensor::op(sites_, "Sz", site_idx) * itensor::op(sites_, "Id", site_idx+1);
+                                bond_term += H2 * itensor::op(sites_, "Id", site_idx) * itensor::op(sites_, "Sz", site_idx+1);
+                        }
                         itensor::ITensor U, d;
                         itensor::diagHermitian(bond_term, U, d);
                         spectrum_[(N_+1)*idx1 + idx2] = {U, d};
