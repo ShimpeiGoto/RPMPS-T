@@ -74,6 +74,7 @@ plt.subplot(2, 3, 3)
 plt.errorbar(beta_sample, np.array(sample['Entropy']['Average'][idx])/L,
              yerr=np.array(sample['Entropy']['Error'][idx])/L,
              label='bootstrap')
+plt.axhline(y=0.0, linestyle='--', color='r')
 plt.ylabel(r'$S/L$')
 plt.xlabel(r'$\beta$')
 plt.legend()
@@ -85,5 +86,6 @@ plt.errorbar(beta_sample, sample['PositivePartitionFunction']['Average'][idx],
 plt.yscale('log')
 plt.ylabel(r'$\mathrm{e}^{-\beta \lambda_\mathrm{min}}\Xi$')
 plt.xlabel(r'$\beta$')
+plt.axhline(y=1.0, linestyle='--', color='r')
 plt.legend()
 plt.show()
