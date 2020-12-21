@@ -21,7 +21,6 @@
 # THE SOFTWARE.
 
 import numpy as np
-import matplotlib.pyplot as plt
 import toml
 import json
 from glob import glob
