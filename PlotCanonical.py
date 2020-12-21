@@ -28,33 +28,35 @@ from glob import glob
 
 
 def jackknife_estimate(data, func):
-    nsample = data[0].size
-    jackknife = np.empty(nsample)
+    nsample = data[0].shape[1]
+    jackknife = np.empty(data[0].shape)
     for i in range(nsample):
-        deleted = [np.delete(x, i) for x in data]
-        jackknife[i] = func(*deleted)
-    jack_mean = np.average(jackknife)
+        deleted = [np.delete(x, i, axis=1) for x in data]
+        jackknife[:, i] = func(*deleted)
+    jack_mean = np.average(jackknife, axis=1)
     ave = func(*data)
     bias = (nsample-1)*(jack_mean - ave)
-    var = np.average(np.power(jackknife - jack_mean, 2.0))
+    var = np.var(jackknife, axis=1)
     error = np.sqrt((nsample-1)*var)
     return [ave, bias, error]
 
 
 def Observable(x, y):
-    return np.average(x) / np.average(y)
+    return np.average(x, axis=1) / np.average(y, axis=1)
 
 
 def Fluctuation(x, y, z):
-    return np.average(x) / np.average(z) - (np.average(y) / np.average(z))**2
+    return (np.average(x, axis=1) / np.average(z, axis=1)
+            - (np.average(y, axis=1) / np.average(z, axis=1))**2)
 
 
 def FreeEnergy(x):
-    return -np.log(np.average(x))
+    return -np.log(np.average(x, axis=1))
 
 
 def Entropy(x, y, beta):
-    return np.log(np.average(x)) + beta * np.average(y) / np.average(x)
+    return (np.log(np.average(x, axis=1))
+            + beta * np.average(y, axis=1) / np.average(x, axis=1))
 
 
 setting = toml.load(open('setting.toml'))
@@ -73,7 +75,7 @@ energies = []
 for i, sample in enumerate(samples):
     data = json.load(open(sample))
     if i == 0:
-        beta_list = np.array(data['beta'])
+        beta = np.array(data['beta'])
     Nsample += len(data['Samples'])
     energies.append(data['LowestEnergy'])
 gene = min(energies)
@@ -81,7 +83,7 @@ gene = min(energies)
 for i, sample in enumerate(samples):
     data = json.load(open(sample))
     for each in data['Samples']:
-        norm = (np.exp(0.5*beta_list*(gene - each['Energy'][-1]))
+        norm = (np.exp(0.5*beta*(gene - each['Energy'][-1]))
                 * np.array(each['Norm']))
         ene = np.array(each['Energy'])
         ene_sq = np.array(each['SquaredEnergy'])
@@ -95,68 +97,52 @@ ene_arr = np.array(ene_arr).T
 ene_sq_arr = np.array(ene_sq_arr).T
 M_arr = np.array(M_arr).T
 
-sampled_ene = []
-sampled_ene_err = []
-sampled_Z = []
-sampled_Z_err = []
-sampled_C = []
-sampled_C_err = []
-sampled_free = []
-sampled_free_err = []
-sampled_entropy = []
-sampled_entropy_err = []
+sampled_Z = np.average(norm_sq_arr, axis=1)
+sampled_Z_err = np.sqrt(np.var(norm_sq_arr, axis=1)/Nsample)
 
-for i, beta in enumerate(beta_list):
-    Z = np.average(norm_sq_arr[i, :])
-    sampled_Z.append(Z)
-    sampled_Z_err.append(np.sqrt(np.var(norm_sq_arr[i, :])/Nsample))
-    ave, bias, err = jackknife_estimate([ene_arr[i, :], norm_sq_arr[i, :]],
-                                        Observable)
-    sampled_ene.append(ave/N)
-    sampled_ene_err.append(err/N)
-    ave, bias, err = jackknife_estimate([ene_sq_arr[i, :],
-                                         ene_arr[i, :],
-                                         norm_sq_arr[i, :]],
-                                        Fluctuation)
-    sampled_C.append(beta*beta*ave/N)
-    sampled_C_err.append(beta*beta*err/N)
+ave, bias, err = jackknife_estimate([ene_arr, norm_sq_arr], Observable)
+sampled_ene = ave/N
+sampled_ene_err = err/N
+ave, bias, err = jackknife_estimate([ene_sq_arr, ene_arr, norm_sq_arr],
+                                    Fluctuation)
+sampled_C = beta*beta*ave/N
+sampled_C_err = beta*beta*err/N
 
-    ave, bias, err = jackknife_estimate([norm_sq_arr[i, :], ene_arr[i, :]],
-                                        lambda x, y: Entropy(x, y, beta))
-    sampled_entropy.append((ave-beta*gene)/N)
-    sampled_entropy_err.append(err/N)
+ave, bias, err = jackknife_estimate([norm_sq_arr, ene_arr],
+                                    lambda x, y: Entropy(x, y, beta))
+sampled_entropy = (ave-beta*gene)/N
+sampled_entropy_err = err/N
 
-    if beta > 0:
-        ave, bias, err = jackknife_estimate([norm_sq_arr[i, :]], FreeEnergy)
-        sampled_free.append((ave/beta + gene)/N)
-        sampled_free_err.append((err/beta)/N)
+ave, bias, err = jackknife_estimate([norm_sq_arr[1:, :]], FreeEnergy)
+sampled_free = (ave/beta[1:] + gene)/N
+sampled_free_err = (err/beta[1:])/N
 
 
 plt.subplot(3, 2, 1)
-plt.errorbar(beta_list, sampled_ene, yerr=sampled_ene_err)
+plt.errorbar(beta, sampled_ene, yerr=sampled_ene_err)
 plt.ylabel(r'$\langle \hat{H} \rangle / L$')
 
 plt.subplot(3, 2, 2)
-plt.errorbar(beta_list, sampled_Z, yerr=sampled_Z_err)
+plt.errorbar(beta, sampled_Z, yerr=sampled_Z_err)
 plt.axhline(y=1.0, linestyle='--', color='r')
 plt.ylabel(r'$\mathrm{e}^{\beta E_0} Z(\beta)$')
 plt.yscale('log')
 
 plt.subplot(3, 2, 3)
-plt.errorbar(beta_list[1:], sampled_free, yerr=sampled_free_err)
+plt.errorbar(beta[1:], sampled_free, yerr=sampled_free_err)
 plt.ylabel(r'$-\ln Z(\beta) / (\beta L)$')
 
 plt.subplot(3, 2, 4)
-plt.errorbar(beta_list, sampled_entropy, yerr=sampled_entropy_err)
+plt.errorbar(beta, sampled_entropy, yerr=sampled_entropy_err)
 plt.axhline(y=0.0, linestyle='--', color='r')
 plt.ylabel(r'$S / (k_\mathrm{B} L)$')
 
 plt.subplot(3, 2, 5)
-plt.errorbar(beta_list, sampled_C, yerr=sampled_C_err)
+plt.errorbar(beta, sampled_C, yerr=sampled_C_err)
 plt.ylabel(r'$C / (k_\mathrm{B} L)$')
 
 plt.subplot(3, 2, 6)
-plt.errorbar(beta_list, np.average(M_arr, axis=1),
+plt.errorbar(beta, np.average(M_arr, axis=1),
              yerr=np.sqrt(np.var(M_arr, axis=1)))
 plt.ylabel('Bond dimension')
 
