@@ -54,9 +54,20 @@ def FreeEnergy(x):
     return -np.log(np.average(x, axis=1))
 
 
-def Entropy(x, y, beta):
+def Entropy(x, y, beta, gene):
     return (np.log(np.average(x, axis=1))
-            + beta * np.average(y, axis=1) / np.average(x, axis=1))
+            + beta * (np.average(y, axis=1) / np.average(x, axis=1) - gene))
+
+
+def EntropyDerivative(x, y, beta, gene):
+    entropy = (np.log(np.average(x, axis=1))
+               + beta*(np.average(y, axis=1) / np.average(x, axis=1) - gene))
+    res = np.empty(beta.size)
+    res[0] = (entropy[1] - entropy[0]) / (beta[1] - beta[0])
+    res[1:-1] = [(entropy[i+1] - entropy[i-1])/(beta[i+1] - beta[i-1])
+                 for i in range(1, beta.size-1)]
+    res[-1] = (entropy[-2] - entropy[-1])/(beta[-2] - beta[-1])
+    return res
 
 
 setting = toml.load(open('setting.toml'))
@@ -109,14 +120,19 @@ sampled_C = beta*beta*ave/N
 sampled_C_err = beta*beta*err/N
 
 ave, bias, err = jackknife_estimate([norm_sq_arr, ene_arr],
-                                    lambda x, y: Entropy(x, y, beta))
-sampled_entropy = (ave-beta*gene)/N
+                                    lambda x, y: Entropy(x, y, beta, gene))
+sampled_entropy = ave/N
 sampled_entropy_err = err/N
 
 ave, bias, err = jackknife_estimate([norm_sq_arr[1:, :]], FreeEnergy)
 sampled_free = (ave/beta[1:] + gene)/N
 sampled_free_err = (err/beta[1:])/N
 
+ave, bias, err = jackknife_estimate([norm_sq_arr, ene_arr],
+                                    lambda x, y:
+                                    EntropyDerivative(x, y, beta, gene))
+sampled_C_dS = -beta*ave/N
+sampled_C_dS_err = beta*err/N
 
 plt.subplot(3, 2, 1)
 plt.errorbar(beta, sampled_ene, yerr=sampled_ene_err)
@@ -138,7 +154,10 @@ plt.axhline(y=0.0, linestyle='--', color='r')
 plt.ylabel(r'$S / (k_\mathrm{B} L)$')
 
 plt.subplot(3, 2, 5)
-plt.errorbar(beta, sampled_C, yerr=sampled_C_err)
+plt.errorbar(beta, sampled_C, yerr=sampled_C_err, label='fluctuation')
+plt.errorbar(beta, sampled_C_dS, yerr=sampled_C_dS_err,
+             label=r'$-\beta\frac{\partial S}{\partial \beta}$')
+plt.legend()
 plt.ylabel(r'$C / (k_\mathrm{B} L)$')
 
 plt.subplot(3, 2, 6)
