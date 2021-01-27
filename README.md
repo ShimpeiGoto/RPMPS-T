@@ -13,6 +13,8 @@ For file I/O of simulations, the code uses following libraries
 - JSON for Modern C++ (https://github.com/nlohmann/json)
 - TOML for Modern C++ (https://github.com/ToruNiina/toml11)
 
+We test this code with ITensor version 3.1.3, JSON for Modern C++ version 3.8.0, and TOML for Modern C++ version 3.6.0.
+
 These are header-only libraries. Please put them (single header version of json.hpp, toml.hpp, and toml directory in these repositories) on your include path.
 
 ## Python scripts for statistical analysis and plotting
@@ -22,6 +24,8 @@ The python scripts in this repository use following non-standard libraries
 - toml (https://pypi.org/project/toml/)
 
 Please install them with your favorite tool such as pip or conda.
+
+We test the scripts with Numpy version 1.19.4, Matplotlib version 3.3.3, and toml version 0.10.2.
 
 # Compile
 You have to compile and install ITensor library at first. After that, please copy Makefile by
