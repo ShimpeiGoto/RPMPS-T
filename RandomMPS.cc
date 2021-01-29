@@ -49,11 +49,13 @@ int main() {
         double J = toml::find<double>(toml, "System", "J");
         double J2 = toml::find<double>(toml, "System", "J2");
         int Ns = toml::find<int>(toml, "System", "Lattice");
-        int Sz = toml::find<int>(toml, "System", "Sz");
         bool is_abelian = toml::find<bool>(toml, "System", "AbelianSymmetry");
         double hz = 0.0;
+        int Sz = 0;
         if (!is_abelian) {
                 hz = toml::find<double>(toml, "System", "MagneticField");
+        } else {
+                Sz = toml::find<int>(toml, "System", "Sz");
         }
 
         double dBeta = toml::find<double>(toml, "tDMRG", "dBeta");
@@ -83,10 +85,16 @@ int main() {
 
         auto H = itensor::toMPO(ampo_H);
         auto obs = Observer(H);
+        randomMPS::Sampler Sampler(sites);
 
-        int Nup = (Ns + Sz) / 2, Ndn = (Ns - Sz) / 2;
-        if ((Nup + Ndn != Ns or Nup < 0 or Ndn < 0 or Nup > Ns or Ndn > Ns) and is_abelian) {
-                throw std::runtime_error("Selected Sz sector cannot be specified in this system");
+        if (is_abelian) {
+                int Nup = (Ns + Sz) / 2, Ndn = (Ns - Sz) / 2;
+                if ((Nup + Ndn != Ns or Nup < 0 or Ndn < 0 or Nup > Ns or Ndn > Ns) and is_abelian) {
+                        throw std::runtime_error("Selected Sz sector cannot be specified in this system");
+                }
+
+                itensor::QN target({"Sz", Sz});
+                Sampler.set_target(target);
         }
 
         // Setup Trotter gates
@@ -116,14 +124,8 @@ int main() {
         for (auto&& x : reversed) {
                 gates.push_back(x);
         }
-
-        randomMPS::Sampler Sampler(sites);
-        if (is_abelian) {
-                itensor::QN target({"Sz", Sz});
-                Sampler.set_target(target);
-        }
-
         Sampler.set_gates(gates);
+
         if (toml.contains("UnitaryTransformation")){
                 double tau_uni = toml::find<double>(toml, "UnitaryTransformation", "tau");
                 double Jz_uni = toml::find<double>(toml, "UnitaryTransformation", "Jz");
