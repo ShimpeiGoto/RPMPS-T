@@ -1,10 +1,12 @@
-# This file is the modification of /tutorial/project_template/Makefile of 
+#
+# This file is the modification of /tutorial/project_template/Makefile of
 # ITensor library (https://github.com/ITensor/ITensor) which is licensed under
 # apache license 2.0 (http://www.apache.org/licenses/LICENSE-2.0).
 #
-# We modify variables LIBRARY_DIR, APP, and HEADERS.
+# We preset variables LIBRARY_DIR, APP, and HEADERS so that users can easily
+# compile the codes.
 #
-# 1. Put this file in the same folder as your 'driver' code 
+# 1. Put this file in the same folder as your 'driver' code
 #    (the code containing the 'main' function).
 
 # 2. Edit LIBRARY_DIR to point at the location of your ITensor Library
@@ -54,7 +56,7 @@ build: $(APP)
 debug: $(APP)-g
 
 $(APP): $(OBJECTS) $(ITENSOR_LIBS)
-	$(CCCOM) $(CCFLAGS) -g $(OBJECTS) -o $(APP) $(LIBFLAGS) 
+	$(CCCOM) $(CCFLAGS) -g $(OBJECTS) -o $(APP) $(LIBFLAGS)
 
 $(APP)-g: mkdebugdir $(GOBJECTS) $(ITENSOR_GLIBS)
 	$(CCCOM) $(CCGFLAGS) $(GOBJECTS) -o $(APP)-g $(LIBGFLAGS)
