@@ -105,7 +105,7 @@ result = {
         'SpecificHeat': {'Average': [], 'Error': []},
         'SpecificHeatFromS': {'Average': [], 'Error': []},
         'Entropy': {'Average': [], 'Error': []},
-        'PositivePartitionFunction': {'Average': [], 'Error': []}
+        'NormalizedPartitionFunction': {'Average': [], 'Error': []}
           }
 bootstrap_data = []
 for bootstrap in range(nB):
@@ -205,10 +205,10 @@ for h in h_list:
     result['SpecificHeatFromS']['Error'].append(
             np.sqrt(np.var(specificheat_s, axis=1)).tolist()
             )
-    result['PositivePartitionFunction']['Average'].append(
+    result['NormalizedPartitionFunction']['Average'].append(
             np.average(partition, axis=1).tolist()
             )
-    result['PositivePartitionFunction']['Error'].append(
+    result['NormalizedPartitionFunction']['Error'].append(
             np.sqrt(np.var(partition, axis=1)).tolist()
             )
     print(h)

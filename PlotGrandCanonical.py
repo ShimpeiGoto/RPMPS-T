@@ -80,8 +80,9 @@ plt.xlabel(r'$\beta$')
 plt.legend()
 
 plt.subplot(2, 3, 6)
-plt.errorbar(beta_sample, sample['PositivePartitionFunction']['Average'][idx],
-             yerr=sample['PositivePartitionFunction']['Error'][idx],
+plt.errorbar(beta_sample,
+             sample['NormalizedPartitionFunction']['Average'][idx],
+             yerr=sample['NormalizedPartitionFunction']['Error'][idx],
              label='bootstrap')
 plt.yscale('log')
 plt.ylabel(r'$\mathrm{e}^{-\beta \lambda_\mathrm{min}}\Xi$')
