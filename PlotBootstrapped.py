@@ -23,70 +23,63 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import json
+import toml
 
 sample = json.load(open('bootstrapped.json', 'r'))
+boot_setting = toml.load(open('bootstrap.toml'))
 
 beta_sample = sample['Beta']
 L = sample['SystemSize']
 
-idx = 10
+idx = boot_setting['Plot']['Index']
 h_list = sample['MagneticField']
 hz = h_list[idx]
 
 nbeta = len(beta_sample)
 plt.subplot(2, 3, 1)
 plt.errorbar(beta_sample, np.array(sample['Energy']['Average'][idx])/L,
-             yerr=np.array(sample['Energy']['Error'][idx])/L,
-             label='bootstrap')
+             yerr=np.array(sample['Energy']['Error'][idx])/L)
 plt.ylabel(r'$\langle\hat{H}\rangle/L$')
 plt.xlabel(r'$\beta$')
-plt.legend()
-
-plt.subplot(2, 3, 4)
-plt.errorbar(beta_sample, np.array(sample['Magnetization']['Average'][idx])/L,
-             yerr=np.array(sample['Magnetization']['Error'][idx])/L,
-             label='bootstrap')
-plt.ylabel(r'$\langle\hat{S}^z\rangle/L$')
-plt.xlabel(r'$\beta$')
-plt.legend()
 
 plt.subplot(2, 3, 2)
 plt.errorbar(beta_sample, np.array(sample['SpecificHeat']['Average'][idx])/L,
              yerr=np.array(sample['SpecificHeat']['Error'][idx])/L,
-             label='bootstrap')
+             label='fluctuation')
 plt.errorbar(beta_sample,
              np.array(sample['SpecificHeatFromS']['Average'][idx])/L,
              yerr=np.array(sample['SpecificHeatFromS']['Error'][idx])/L,
-             label='bootstrap')
+             label=r'$-\beta\frac{\partial S}{\partial \beta}$')
 plt.ylabel(r'$C/L$')
-plt.xlabel(r'$\beta$')
-plt.legend()
-
-plt.subplot(2, 3, 5)
-plt.errorbar(beta_sample, np.array(sample['Susceptibility']['Average'][idx])/L,
-             yerr=np.array(sample['Susceptibility']['Error'][idx])/L,
-             label='bootstrap')
-plt.ylabel(r'$\chi/L$')
 plt.xlabel(r'$\beta$')
 plt.legend()
 
 plt.subplot(2, 3, 3)
 plt.errorbar(beta_sample, np.array(sample['Entropy']['Average'][idx])/L,
-             yerr=np.array(sample['Entropy']['Error'][idx])/L,
-             label='bootstrap')
+             yerr=np.array(sample['Entropy']['Error'][idx])/L)
 plt.axhline(y=0.0, linestyle='--', color='r')
 plt.ylabel(r'$S/L$')
 plt.xlabel(r'$\beta$')
-plt.legend()
+
+plt.subplot(2, 3, 4)
+plt.errorbar(beta_sample, np.array(sample['Magnetization']['Average'][idx])/L,
+             yerr=np.array(sample['Magnetization']['Error'][idx])/L)
+plt.ylabel(r'$\langle\hat{S}^z\rangle/L$')
+plt.xlabel(r'$\beta$')
+
+plt.subplot(2, 3, 5)
+plt.errorbar(beta_sample, np.array(sample['Susceptibility']['Average'][idx])/L,
+             yerr=np.array(sample['Susceptibility']['Error'][idx])/L)
+plt.ylabel(r'$\chi/L$')
+plt.xlabel(r'$\beta$')
 
 plt.subplot(2, 3, 6)
 plt.errorbar(beta_sample,
              sample['NormalizedPartitionFunction']['Average'][idx],
-             yerr=sample['NormalizedPartitionFunction']['Error'][idx],
-             label='bootstrap')
+             yerr=sample['NormalizedPartitionFunction']['Error'][idx])
 plt.yscale('log')
 plt.ylabel(r'$\mathrm{e}^{-\beta \lambda_\mathrm{min}}\Xi$')
 plt.xlabel(r'$\beta$')
 plt.axhline(y=1.0, linestyle='--', color='r')
-plt.legend()
+
 plt.show()

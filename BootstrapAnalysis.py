@@ -91,11 +91,16 @@ for i in range(-L, L+1, 2):
     directory = './Sz='+str(i)
     AddData(directory, storage)
 
-h_list = np.linspace(0, 4.0, 101)
+boot_setting = toml.load(open('bootstrap.toml'))
+h_low = boot_setting['Bootstrap']['MagneticField']['LowH']
+h_high = boot_setting['Bootstrap']['MagneticField']['HighH']
+h_num = boot_setting['Bootstrap']['MagneticField']['HNumber']
+h_list = np.linspace(h_low, h_high, h_num)
+
+nB = boot_setting['Bootstrap']['BootstrapNumber']
 
 nBeta = storage['beta'].size
 
-nB = 4000
 result = {
         'Beta': storage['beta'].tolist(), 'MagneticField': h_list.tolist(),
         'SystemSize': L, 'BootstrapSize': nB,
