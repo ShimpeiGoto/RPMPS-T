@@ -19,6 +19,10 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+/// @file RandomPhaseState.h
+/// @brief Header file which contains functions to produce random phase states
+/// @author Shimpei Goto
+//
 #ifndef UUID_DFB5FFA9_FC7D_4EE2_8096_AE8280CCE961
 #define UUID_DFB5FFA9_FC7D_4EE2_8096_AE8280CCE961
 #include <itensor/all_mps.h>
