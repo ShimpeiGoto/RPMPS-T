@@ -35,10 +35,10 @@ namespace  {
 
                 public:
                         Observer(itensor::MPO &H) : H_(H) {};
-                        void operator()(itensor::MPS &psi, nlohmann::json &sample);
+                        void operator()(const itensor::MPS &psi, nlohmann::json &sample);
         };
 
-        void Observer::operator()(itensor::MPS &psi, nlohmann::json &sample) {
+        void Observer::operator()(const itensor::MPS &psi, nlohmann::json &sample) {
                 sample["SquaredEnergy"].push_back(itensor::innerC(itensor::prime(psi, 2), itensor::prime(H_, 1), H_, psi).real());
                 sample["Energy"].push_back(itensor::innerC(psi, H_, psi).real());
         }
