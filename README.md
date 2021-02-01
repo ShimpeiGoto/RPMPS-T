@@ -37,3 +37,29 @@ and edit ```LIBRARY_DIR``` of the copied ```Makefile``` to point the directory w
 # How to run
 Please run ```RandomMPS``` in a directory which contains ```setting.toml``` copied from ```setting.toml.sample```.
 The output file ```sample_(random seed number).json``` will be created and updated by every iteration.
+
+If the key "AbelianSymmetry" is set to *false*, the *grand canonical* ensemble is simulated and the key "MagneticField" is used.
+
+If the key "AbelianSymmetry" is set to *true*, the *canonical ensemble* is simulated and the key "Sz" is used.
+
+# How to plot
+## In the simple canonical and grand canonical cases
+One can plot thermodynamic quantities by executing the script "PlotJackknife.py" from a directory containg "setting.toml" and "sample_\*.json" files.
+This script can be used for both canonical and grand canonical ensembles.
+
+## When constructing the grand canonical ensemble from the canonical ensembles
+If one would like to construct the grand canonical ensemble from the canonical ensemble in M-site system, one should perform simulations from Sz=-M to M and place these results into directories "Sz=-M" to "Sz=M" at first.
+Next, one of "setting.toml" used in simulations and "bootstrap.toml" copied from "bootstrap.toml.sample" are placed in the same level of the directories.
+In M=10 case for example, a directory structure is like this.
+```bash
+├── /Sz=-10                                                                                                                                                                    
+├── /Sz=-8
+:
+:
+├── /Sz=10
+├── bootstrap.toml
+└── setting.toml
+```
+From a directory containing "bootstrap.toml", please run the script "BootstrappedAnalysis.py". Then, "bootstrapped.json" will be generated.
+By excecuting the script "PlotBootstrapped.py" from a directory with "bootstrapped.json", thermodynamic quantities are plotted.
+The magnetic field to be plotted can be adjusted by modifying "bootstrap.toml".
