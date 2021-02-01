@@ -40,7 +40,7 @@
 
 namespace randomMPS {
         /// @class Sampler
-        /// @brief Calss responsible for ERP MPS calculations
+        /// @brief Class responsible for ERP MPS calculations
         class Sampler {
                 private:
                         uint_fast64_t seed_;
