@@ -67,6 +67,6 @@ The magnetic field to be plotted can be adjusted by modifying "bootstrap.toml".
 # Create your project
 The class "randomMPS::Sampler" is designed to be compatible with any "itensor::SiteSet<>" classes such as spinful fermions or softcore bosons.
 "randomMPS::Sampler" is defined in "RandomMPS.h" and this header file depends on "RandomPhaseState.h" and the dependencies.
-With the two header files, you can implement the entangled random phase MPS calculations on demands.
+With the two header files, you can implement the entangled random phase MPS calculations for any systems on demands.
 
 For details, see here.
