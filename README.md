@@ -64,9 +64,8 @@ From a directory containing "bootstrap.toml", please run the script "Bootstrappe
 By excecuting the script "PlotBootstrapped.py" from a directory with "bootstrapped.json", thermodynamic quantities are plotted.
 The magnetic field to be plotted can be adjusted by modifying "bootstrap.toml".
 
-# Create your project
-The class "randomMPS::Sampler" is designed to be compatible with any "itensor::SiteSet<>" classes such as spinful fermions or softcore bosons.
-"randomMPS::Sampler" is defined in "RandomMPS.h" and this header file depends on "RandomPhaseState.h" and the dependencies.
+# Create your own project
+The class "randomMPS::Sampler" is designed to be compatible with any "itensor::SiteSet<>" classes such as spinful fermions or softcore bosons, and is defined in "RandomMPS.h" which depends on "RandomPhaseState.h" and the dependencies (json.hpp, toml.hpp, and itensor).
 With the two header files, you can implement the entangled random phase MPS calculations for any systems on demands.
 
 For details, see here.
