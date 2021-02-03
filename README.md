@@ -34,7 +34,7 @@ cp Makefile.sample Makefile
 ```
 and edit ```LIBRARY_DIR``` of the copied ```Makefile``` to point the directory where you have installed ITensor library.
 
-# How to run
+# How to run the main C++ program
 Please run ```RandomMPS``` in a directory which contains ```setting.toml``` copied from ```setting.toml.sample```.
 The output file ```sample_(random seed number).json``` will be created and updated by every iteration.
 
@@ -42,7 +42,7 @@ If the key "AbelianSymmetry" is set to *false*, the *grand canonical* ensemble i
 
 If the key "AbelianSymmetry" is set to *true*, the *canonical ensemble* is simulated and the key "Sz" is used.
 
-# How to plot
+# How to plot with the python scripts
 ## In the simple canonical and grand canonical cases
 One can plot thermodynamic quantities by executing the script "PlotJackknife.py" from a directory containg "setting.toml" and "sample_\*.json" files.
 This script can be used for both canonical and grand canonical ensembles.
@@ -63,3 +63,9 @@ In M=10 case for example, a directory structure is like this.
 From a directory containing "bootstrap.toml", please run the script "BootstrappedAnalysis.py". Then, "bootstrapped.json" will be generated.
 By excecuting the script "PlotBootstrapped.py" from a directory with "bootstrapped.json", thermodynamic quantities are plotted.
 The magnetic field to be plotted can be adjusted by modifying "bootstrap.toml".
+
+# Create your own project
+The class "randomMPS::Sampler" is designed to be compatible with any "itensor::SiteSet<>" classes such as spinful fermions or softcore bosons, and is defined in "RandomMPS.h" which depends on "RandomPhaseState.h" and the dependencies (json.hpp, toml.hpp, and itensor).
+With the two header files, you can implement the entangled random phase MPS calculations for any systems on demands.
+
+For details, see here.
