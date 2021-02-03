@@ -1,0 +1,14 @@
+[Bootstrap]
+# Number of bootstrapped samples
+BootstrapNumber = 4000
+[Bootstrap.MagneticField]
+# lowest magnetic field
+LowH = 0.0
+# Highest magnetic field
+HighH = 4.0
+# Number of magnetic field points
+HNumber = 101
+
+[Plot]
+# Index of magnetic field to be plotted (zero index)
+Index = 0

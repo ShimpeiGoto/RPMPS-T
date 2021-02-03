@@ -1,0 +1,43 @@
+# Parameters determine system
+[System]
+# Heisenberg interaction for nearest neighbor bonds
+J = 1.0
+# Heisenberg interaction for next nearest neighbor bonds
+# If the absolute value is smaller than 1e-8, this interaction will be truncated
+J2 = 1.0
+# Lattice size
+Lattice = 12
+# Magnetic sector to be simulated
+Sz = 0
+# Whether simulation utilizes Abelian symmetry
+# Without Abelian symmetry, simulation emulates the grand canonical ensemble
+AbelianSymmetry = true
+# Magnetic field. This value is used only when simulation does not use Abelian symmetry
+MagneticField = 0.0
+
+# Parameters for tDMRG
+[tDMRG]
+# slice of imaginary time evolution
+dBeta = 0.05
+# Number of slices in imaginary time evolution
+NBeta = 1000
+
+# Parameters for samplings
+[Sampling]
+# Number of samplings
+Sample = 128
+# Interval for observation points in imaginary time
+ObserveInterval = 10
+
+# Parameters for MPS simulation
+[MPS]
+# Max bond dimension
+MaxM = 2000
+# Truncation error
+tol = 1e-8
+
+# Parameters for unitary transformation
+[UnitaryTransformation]
+Steps = 1
+tau = 0.5
+Jz = 9.0
