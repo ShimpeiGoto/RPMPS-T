@@ -1,0 +1,16 @@
+<map id="RandomMPS.h" name="RandomMPS.h">
+<area shape="rect" id="node1" title="Header file including Sampler class which is responsible for ERP MPS calculations." alt="" coords="584,5,695,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,155,127,181"/>
+<area shape="rect" id="node3" href="$_random_phase_state_8h.html" title="Header file which contains functions to produce random phase states." alt="" coords="375,80,525,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="151,155,210,181"/>
+<area shape="rect" id="node7" title=" " alt="" coords="531,155,596,181"/>
+<area shape="rect" id="node9" title=" " alt="" coords="621,155,674,181"/>
+<area shape="rect" id="node10" title=" " alt="" coords="698,155,757,181"/>
+<area shape="rect" id="node11" title=" " alt="" coords="702,80,763,107"/>
+<area shape="rect" id="node12" title=" " alt="" coords="788,80,843,107"/>
+<area shape="rect" id="node13" title=" " alt="" coords="867,80,939,107"/>
+<area shape="rect" id="node14" title=" " alt="" coords="964,80,1035,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="234,155,309,181"/>
+<area shape="rect" id="node5" title=" " alt="" coords="333,155,404,181"/>
+<area shape="rect" id="node8" title=" " alt="" coords="428,155,507,181"/>
+</map>

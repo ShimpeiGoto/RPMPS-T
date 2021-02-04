@@ -1,0 +1,4 @@
+<map id="RandomPhaseState.h" name="RandomPhaseState.h">
+<area shape="rect" id="node1" title="Header file which contains functions to produce random phase states." alt="" coords="5,5,156,32"/>
+<area shape="rect" id="node2" href="$_random_m_p_s_8h.html" title="Header file including Sampler class which is responsible for ERP MPS calculations." alt="" coords="25,80,136,107"/>
+</map>
