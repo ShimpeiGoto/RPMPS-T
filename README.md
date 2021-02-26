@@ -48,15 +48,15 @@ One can plot thermodynamic quantities by executing the script "PlotJackknife.py"
 This script can be used for both canonical and grand canonical ensembles.
 
 ## When constructing the grand canonical ensemble from the canonical ensembles
-If one would like to construct the grand canonical ensemble from the canonical ensemble in M-site system, one should perform simulations from Sz=-M to M and place these results into directories "Sz=-M" to "Sz=M" at first.
+If one would like to construct the grand canonical ensemble from the canonical ensemble in M-site system, one should perform simulations from 2Sz=-M to M and place these results into directories "TwoSz=-M" to "TwoSz=M" at first.
 Next, one of "setting.toml" used in simulations and "bootstrap.toml" copied from "bootstrap.toml.sample" are placed in the same level of the directories.
 In M=10 case for example, a directory structure is like this.
 ```bash
-├── /Sz=-10                                                                                                                                                                    
-├── /Sz=-8
+├── /TwoSz=-10                                                                                                                                                                    
+├── /TwoSz=-8
 :
 :
-├── /Sz=10
+├── /TwoSz=10
 ├── bootstrap.toml
 └── setting.toml
 ```
