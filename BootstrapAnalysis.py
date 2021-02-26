@@ -88,7 +88,7 @@ setting = toml.load(open('setting.toml'))
 L = setting['System']['Lattice']
 
 for i in range(-L, L+1, 2):
-    directory = './Sz='+str(i)
+    directory = './TwoSz='+str(i)
     AddData(directory, storage)
 
 boot_setting = toml.load(open('bootstrap.toml'))

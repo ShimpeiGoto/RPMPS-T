@@ -55,7 +55,7 @@ int main() {
         if (!is_abelian) {
                 hz = toml::find<double>(toml, "System", "MagneticField");
         } else {
-                Sz = toml::find<int>(toml, "System", "Sz");
+                Sz = toml::find<int>(toml, "System", "2Sz");
         }
 
         double dBeta = toml::find<double>(toml, "tDMRG", "dBeta");
