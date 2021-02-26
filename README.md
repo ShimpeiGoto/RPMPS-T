@@ -1,5 +1,5 @@
-# Entangled Random Phase MPS
-This is the ITensor based implementation of entangled random phase matrix product states (MPS) approach proposed in arXiv:XXXX to simulate quasi one-dimensional quantum many-body systems at finite temperatures.
+# RPMPS-T
+This is the ITensor based implementation of random phase matrix product states with Trotter gates (RPMPS+T) approach proposed in arXiv:XXXX to simulate quasi one-dimensional quantum many-body systems at finite temperatures.
 
 The purpose of this implementation is to explain our approach to readers by working example.
 So we dropped some optimizations especially on the composition of Trotter gates on purpose.
@@ -68,4 +68,4 @@ The magnetic field to be plotted can be adjusted by modifying "bootstrap.toml".
 The class "randomMPS::Sampler" is designed to be compatible with any "itensor::SiteSet<>" classes such as spinful fermions or softcore bosons, and is defined in "RandomMPS.h" which depends on "RandomPhaseState.h" and the dependencies (json.hpp, toml.hpp, and itensor).
 With the two header files, you can implement the entangled random phase MPS calculations for any systems on demands.
 
-For details, see [here](https://ShimpeiGoto.github.io/EntangledRandomPhaseMPS/).
+For details, see [here](https://ShimpeiGoto.github.io/RPMPS-T/).
