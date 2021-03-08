@@ -1,5 +1,5 @@
 <map id="RandomMPS.h" name="RandomMPS.h">
-<area shape="rect" id="node1" title="Header file including Sampler class which is responsible for ERP MPS calculations." alt="" coords="584,5,695,32"/>
+<area shape="rect" id="node1" title="Header file including Sampler class which is responsible for RPMPS+T calculations." alt="" coords="584,5,695,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,155,127,181"/>
 <area shape="rect" id="node3" href="$_random_phase_state_8h.html" title="Header file which contains functions to produce random phase states." alt="" coords="375,80,525,107"/>
 <area shape="rect" id="node6" title=" " alt="" coords="151,155,210,181"/>

@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 /// @file RandomMPS.h
-/// @brief Header file including Sampler class which is responsible for ERP MPS calculations
+/// @brief Header file including Sampler class which is responsible for RPMPS+T calculations
 /// @author Shimpei Goto
 
 #ifndef UUID_44723946_6E0D_4CAD_94D7_D0472947F58D
@@ -40,7 +40,7 @@
 
 namespace randomMPS {
         /// @class Sampler
-        /// @brief Class responsible for ERP MPS calculations
+        /// @brief Class responsible for RPMPS+T calculations
         class Sampler {
                 private:
                         uint_fast64_t seed_;

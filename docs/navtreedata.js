@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "Entangled Random Phase MPS", "index.html", [
+  [ "RPMPS+T", "index.html", [
     [ "References for class \"randomMPS::Sampler\"", "index.html", null ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
