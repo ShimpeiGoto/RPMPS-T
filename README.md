@@ -1,5 +1,5 @@
 # RPMPS-T
-This is the ITensor based implementation of random phase matrix product states with Trotter gates (RPMPS+T) approach proposed in arXiv:XXXX to simulate quasi one-dimensional quantum many-body systems at finite temperatures.
+This is the ITensor based implementation of random phase matrix product states with Trotter gates (RPMPS+T) approach proposed in [arXiv:2103.04515](https://arxiv.org/abs/2103.04515) to simulate quasi one-dimensional quantum many-body systems at finite temperatures.
 
 The purpose of this implementation is to explain our approach to readers by working example.
 So we dropped some optimizations especially on the composition of Trotter gates on purpose.
