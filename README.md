@@ -1,5 +1,5 @@
 # RPMPS-T
-This is the ITensor based implementation of random phase matrix product states with Trotter gates (RPMPS+T) approach proposed in [arXiv:2103.04515](https://arxiv.org/abs/2103.04515) to simulate quasi one-dimensional quantum many-body systems at finite temperatures.
+This is the ITensor based implementation of random phase matrix product states with Trotter gates (RPMPS+T) approach proposed in [Phys. Rev. B 104, 045133 (2021)](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.104.045133) ([arXiv:2103.04515](https://arxiv.org/abs/2103.04515)) to simulate quasi one-dimensional quantum many-body systems at finite temperatures.
 
 The purpose of this implementation is to explain our approach to readers by working example.
 So we dropped some optimizations especially on the composition of Trotter gates on purpose.
@@ -33,6 +33,7 @@ You have to compile and install ITensor library at first. After that, please cop
 cp Makefile.sample Makefile
 ```
 and edit ```LIBRARY_DIR``` of the copied ```Makefile``` to point the directory where you have installed ITensor library.
+Then, please type ```make``` and the compiling starts.
 
 # How to run the main C++ program
 Please run ```RandomMPS``` in a directory which contains ```setting.toml``` copied from ```setting.toml.sample```.
